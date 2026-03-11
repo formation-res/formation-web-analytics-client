@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formation Analytics Plain HTML Example</title>
+  </head>
+  <body>
+    <button id="demo">Request demo</button>
+
+    <script type="module">
+      import { createAnalytics } from '../dist/analytics.js';
+
+      const analytics = createAnalytics({
+        endpoint: 'https://analytics.example.com/collect',
+        siteId: 'marketing-site'
+      });
+
+      document.getElementById('demo')?.addEventListener('click', () => {
+        analytics.event('cta_click', { label: 'hero-demo-button' });
+      });
+    </script>
+  </body>
+</html>

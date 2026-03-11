@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formation Analytics Global Example</title>
+  </head>
+  <body>
+    <button onclick="window.analytics.event('signup_started')">Start signup</button>
+
+    <script src="../dist/analytics.iife.js"></script>
+    <script>
+      window.analytics.init({
+        endpoint: 'https://analytics.example.com/collect',
+        siteId: 'marketing-site'
+      });
+    </script>
+  </body>
+</html>
