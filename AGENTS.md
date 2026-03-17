@@ -33,6 +33,13 @@
 - Update `README.md` when runtime behavior, configuration, or examples change
 - Keep `CONTRIBUTING.md` and this file aligned with actual repo practice
 
+## Release Discipline
+
+- Before cutting a release, compare the diff against the latest release tag and propose a semantic version bump that matches the scope of the changes
+- Always give the user a chance to confirm or override the proposed release version before changing `package.json`, creating a tag, or publishing
+- Treat patch releases as fixes and low-risk internal changes, minor releases as backward-compatible feature additions, and major releases as intentional breaking changes
+- Ensure `main` is pushed and `npm run verify` passes before tagging a release
+
 ## Skills
 
 - Use `.codex/skills/js-project-hardening/SKILL.md` when hardening behavior, validation, test coverage, dependency hygiene, or release checks in this package

@@ -1,5 +1,7 @@
 # Formation Web Analytics Client
 
+[![npm version](https://img.shields.io/npm/v/%40tryformation%2Fformation-web-analytics-client)](https://www.npmjs.com/package/@tryformation/formation-web-analytics-client)
+
 Small browser tracker with a low-surprise API close to Google Analytics. Intended to be used together with our [analytics server](https://github.com/tryformation/formation-web-analytics).
 
 ## Install

@@ -13,22 +13,26 @@ Use this skill when the user wants to ship a package release from this repositor
    - Confirm `git status` is clean or understand any existing changes.
    - Read `package.json`, `package-lock.json`, and `.github/workflows/publish.yml`.
    - Confirm package metadata matches the actual GitHub repository and npm package name.
-2. Bump the version intentionally.
+2. Propose the release before changing anything.
+   - Find the latest release tag, inspect the diff since that tag, and recommend a semantic version bump that matches the scope.
+   - Default to patch for fixes and non-user-facing release/tooling work, minor for backward-compatible features, and major for intentional breaking changes.
+   - Ask the user to confirm or override the proposed version before bumping `package.json`, tagging, or publishing.
+3. Bump the version intentionally.
    - Update `package.json` and `package-lock.json` together.
    - Use `npm version <version> --no-git-tag-version` unless the user explicitly wants a different flow.
-3. Verify before pushing.
+4. Verify before pushing.
    - Run `npm run verify`.
    - Do not tag or publish if verification fails.
-4. Commit and push the release commit.
+5. Commit and push the release commit.
    - Use a clear commit message such as `Release 0.1.2`.
    - Push `main` before pushing the tag so the workflow definition and release commit are present on GitHub.
-5. Create and push the semver tag.
+6. Create and push the semver tag.
    - Use an annotated tag like `git tag -a 0.1.2 -m "Release 0.1.2"`.
    - Push the explicit ref: `git push origin refs/tags/0.1.2`.
-6. Follow the GitHub Actions publish run.
+7. Follow the GitHub Actions publish run.
    - Confirm the `publish` workflow started for the tag.
    - Watch the run to completion and inspect logs if it fails.
-7. Confirm publication.
+8. Confirm publication.
    - Check the published version with `npm view <package-name> version`.
    - Create or update the GitHub release if the user asks for one.
 
@@ -36,6 +40,8 @@ Use this skill when the user wants to ship a package release from this repositor
 
 - Prefer the repo's trusted publishing workflow over manual `npm publish` from a local machine.
 - Keep package metadata aligned with the actual GitHub org/repo to avoid confusing npm and users.
+- Base release recommendations on the diff since the latest release tag, not just the current version number.
+- Always pause for user confirmation or override after proposing the next semver version.
 - Treat tag pushes as the publish trigger; do not push a release tag until verification passes.
 - If a tag already exists locally or remotely, stop and reconcile before creating another release.
 - If the publish workflow fails, inspect the failing job before retrying or changing tags.
@@ -52,6 +58,8 @@ If the user wants a GitHub release:
 
 ```bash
 git status --short --branch
+git describe --tags --abbrev=0
+git log --oneline $(git describe --tags --abbrev=0)..HEAD
 sed -n '1,120p' package.json
 sed -n '1,120p' package-lock.json
 sed -n '1,200p' .github/workflows/publish.yml
