@@ -6,6 +6,7 @@
 - Run `npm test` before pushing.
 - Run `npm run build` before publishing or changing the public API.
 - Run `npm run audit` when upgrading dependencies or before publishing.
+- Release by pushing a semver tag like `0.1.1`; GitHub Actions publishes via npm trusted publishing.
 - Use TDD for behavior changes: failing test first, then implementation, then refactor.
 - Keep the API small and unsurprising: `page`, `event`, `identify`, `setContext`.
 - Keep the wire contract compatible with the sibling collector in `../formation-web-analytics`.

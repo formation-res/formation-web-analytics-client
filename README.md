@@ -73,3 +73,9 @@ analytics.event('cta_click', { label: 'hero-demo-button' });
 - `npm run test`
 - `npm run audit`
 - `npm run verify`
+
+## Releases
+
+- Create and push a semver tag like `0.1.1`
+- GitHub Actions will run tests, build, and publish to npm using npm trusted publishing via OIDC
+- Configure the package's trusted publisher on npmjs.com to match `.github/workflows/publish.yml`
