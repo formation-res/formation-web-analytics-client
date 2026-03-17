@@ -1,17 +1,17 @@
 {
   "name": "@tryformation/formation-web-analytics-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Light weight browser analytics client intended to be used with the formation-web-analytics server.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tryformation/formation-web-analytics-client.git"
+    "url": "git+https://github.com/formation-res/formation-web-analytics-client.git"
   },
-  "homepage": "https://github.com/tryformation/formation-web-analytics-client#readme",
+  "homepage": "https://github.com/formation-res/formation-web-analytics-client#readme",
   "bugs": {
-    "url": "https://github.com/tryformation/formation-web-analytics-client/issues"
+    "url": "https://github.com/formation-res/formation-web-analytics-client/issues"
   },
   "keywords": [
     "analytics",
