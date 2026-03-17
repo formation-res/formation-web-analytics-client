@@ -2,8 +2,10 @@
 
 ## Guard Rails
 
+- Run `npm run lint` before pushing.
 - Run `npm test` before pushing.
 - Run `npm run build` before publishing or changing the public API.
+- Run `npm run audit` when upgrading dependencies or before publishing.
 - Use TDD for behavior changes: failing test first, then implementation, then refactor.
 - Keep the API small and unsurprising: `page`, `event`, `identify`, `setContext`.
 - Keep the wire contract compatible with the sibling collector in `../formation-web-analytics`.
@@ -19,4 +21,4 @@
 - Has duplication been removed instead of repeated?
 - Are examples and README updated if usage changed?
 - Are tests present for new browser behavior?
-- Do `npm test` and `npm run build` both pass?
+- Do `npm run lint`, `npm test`, `npm run build`, and `npm run audit` all pass?

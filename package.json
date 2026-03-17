@@ -1,7 +1,28 @@
 {
   "name": "formation-analytics-client",
   "version": "0.1.0",
+  "description": "Small browser analytics client for FORMATION landing pages and customer websites.",
+  "license": "MIT",
   "type": "module",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formation-res/formation-web-analytics-client.git"
+  },
+  "homepage": "https://github.com/formation-res/formation-web-analytics-client#readme",
+  "bugs": {
+    "url": "https://github.com/formation-res/formation-web-analytics-client/issues"
+  },
+  "keywords": [
+    "analytics",
+    "browser",
+    "formation",
+    "tracking",
+    "web-analytics"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "files": [
     "dist"
   ],
@@ -17,12 +38,20 @@
   },
   "scripts": {
     "build": "rm -rf dist && vite build && vite build --config vite.iife.config.ts && tsc -p tsconfig.build.json",
-    "test": "vitest run"
+    "lint": "eslint .",
+    "test": "vitest run",
+    "audit": "npm audit",
+    "verify": "npm run lint && npm test && npm run build && npm run audit",
+    "prepublishOnly": "npm run verify"
   },
   "devDependencies": {
-    "jsdom": "^28.1.0",
-    "typescript": "~5.9.3",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.18"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
+    "jsdom": "^29.0.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1",
+    "vite": "^8.0.0",
+    "vitest": "^4.1.0"
   }
 }

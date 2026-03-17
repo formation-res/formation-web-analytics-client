@@ -1,0 +1,44 @@
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+const vitestGlobals = {
+  beforeEach: 'readonly',
+  describe: 'readonly',
+  expect: 'readonly',
+  it: 'readonly',
+  vi: 'readonly',
+};
+
+export default tseslint.config(
+  {
+    ignores: ['dist/**', 'node_modules/**'],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ['src/**/*.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
+    },
+  },
+  {
+    files: ['src/**/*.test.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...vitestGlobals,
+      },
+    },
+  },
+  {
+    files: ['vite.config.ts', 'vite.iife.config.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+);
