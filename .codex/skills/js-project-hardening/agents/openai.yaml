@@ -1,0 +1,4 @@
+version: 1
+display_name: JS Project Hardening
+short_description: Harden a JavaScript project with TDD, guard rails, and solid verification.
+default_prompt: Harden or extend a JavaScript project while preserving compatibility, using TDD first, tightening validation and runtime behavior, and verifying tests, build output, and release readiness.

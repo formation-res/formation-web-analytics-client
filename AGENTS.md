@@ -25,6 +25,7 @@
 - Prefer focused Vitest coverage over implementation-detail assertions
 - Add or update tests for transport failures, validation guardrails, payload completeness, and SPA navigation behavior when touching those areas
 - Run `npm test` during iteration
+- Keep dependencies current and check for security issues when touching release or tooling work
 - Run `npm test` and `npm run build` before finishing code changes
 
 ## Documentation
@@ -34,4 +35,4 @@
 
 ## Skills
 
-- Use `.codex/skills/formation-analytics-client-hardening/SKILL.md` when hardening transport behavior, browser instrumentation, payload completeness, or tests in this package
+- Use `.codex/skills/js-project-hardening/SKILL.md` when hardening behavior, validation, test coverage, dependency hygiene, or release checks in this package

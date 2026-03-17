@@ -1,17 +1,17 @@
-# Formation Analytics Client
+# Formation Web Analytics Client
 
-Small browser tracker with a low-surprise API close to Google Analytics. Intended to be used together with our [analytics server](https://github.com/formation-res/formation-web-analytics).
+Small browser tracker with a low-surprise API close to Google Analytics. Intended to be used together with our [analytics server](https://github.com/tryformation/formation-web-analytics).
 
 ## Install
 
 ```bash
-npm install formation-analytics-client
+npm install @tryformation/formation-web-analytics-client
 ```
 
 ## Usage
 
 ```ts
-import { createAnalytics } from 'formation-analytics-client';
+import { createAnalytics } from '@tryformation/formation-web-analytics-client';
 
 const analytics = createAnalytics({
   endpoint: 'https://analytics.example.com/collect',

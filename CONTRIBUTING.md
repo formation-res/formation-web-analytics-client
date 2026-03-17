@@ -12,8 +12,8 @@
 - Do not add top-level event fields unless the collector accepts them.
 - Treat non-2xx responses as failures and keep browser instrumentation idempotent.
 - Prefer browser-focused tests over implementation-detail tests.
-- If the runtime behavior changes, update [README.md](/Users/jillesvangurp/git/formation/formation-analytics-client/README.md).
-- Keep [AGENTS.md](/Users/jillesvangurp/git/formation/formation-analytics-client/AGENTS.md) and any repo-local skills aligned with actual practice.
+- If the runtime behavior changes, update [README.md](/Users/jillesvangurp/git/formation/formation-web-analytics-client/README.md).
+- Keep [AGENTS.md](/Users/jillesvangurp/git/formation/formation-web-analytics-client/AGENTS.md) and any repo-local skills aligned with actual practice.
 
 ## Definition Of Done
 
