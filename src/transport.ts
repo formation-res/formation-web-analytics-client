@@ -1,4 +1,10 @@
-import type { OutboundEvent, TransportOptions } from './types';
+import type {
+  AnalyticsError,
+  AnalyticsErrorKind,
+  AnalyticsTransport,
+  OutboundEvent,
+  TransportOptions,
+} from './types';
 
 export async function sendEvent(
   event: OutboundEvent,
@@ -30,7 +36,30 @@ export async function sendEvent(
     body,
     keepalive: true,
     mode: 'cors',
-  });
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw createAnalyticsError(
+          'http_error',
+          'fetch',
+          event,
+          `Analytics request failed with status ${response.status}`,
+          { status: response.status },
+        );
+      }
+    })
+    .catch((error: unknown) => {
+      if (isAnalyticsError(error)) {
+        throw error;
+      }
+      throw createAnalyticsError(
+        'network_error',
+        'fetch',
+        event,
+        'Analytics request failed',
+        { cause: error },
+      );
+    });
   debugLog(options, 'fetch', event);
 }
 
@@ -43,4 +72,23 @@ function debugLog(
     return;
   }
   console.debug(`[formation-analytics] sent via ${transport}`, event);
+}
+
+function createAnalyticsError(
+  kind: AnalyticsErrorKind,
+  transport: AnalyticsTransport,
+  event: OutboundEvent,
+  message: string,
+  extras: Partial<Pick<AnalyticsError, 'status' | 'cause'>> = {},
+): AnalyticsError {
+  return Object.assign(new Error(message), {
+    kind,
+    transport,
+    event,
+    ...extras,
+  });
+}
+
+function isAnalyticsError(value: unknown): value is AnalyticsError {
+  return value instanceof Error && 'kind' in value && 'transport' in value && 'event' in value;
 }

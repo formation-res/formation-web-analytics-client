@@ -5,17 +5,18 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/analytics.iife.js",
+  "main": "./dist/analytics.js",
   "module": "./dist/analytics.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/analytics.js"
+      "import": "./dist/analytics.js",
+      "default": "./dist/analytics.js"
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && vite build && vite build --config vite.iife.config.ts",
+    "build": "rm -rf dist && vite build && vite build --config vite.iife.config.ts && tsc -p tsconfig.build.json",
     "test": "vitest run"
   },
   "devDependencies": {

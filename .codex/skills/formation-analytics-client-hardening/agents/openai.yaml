@@ -1,0 +1,4 @@
+version: 1
+display_name: Formation Analytics Hardening
+short_description: Harden the analytics client with TDD and browser-safe guardrails.
+default_prompt: Harden or extend the FORMATION analytics client while preserving backend compatibility, using TDD first, and validating transport, payload completeness, and SPA instrumentation.

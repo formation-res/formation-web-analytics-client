@@ -57,4 +57,63 @@ describe('transport', () => {
 
     expect(fetchMock).toHaveBeenCalledOnce();
   });
+
+  it('throws when fetch rejects', async () => {
+    Object.defineProperty(window.navigator, 'sendBeacon', {
+      configurable: true,
+      value: undefined,
+    });
+    const fetchMock = vi.fn().mockRejectedValue(new Error('network down'));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(
+      sendEvent(
+        {
+          type: 'page_view',
+          site_id: 'site',
+          timestamp: new Date().toISOString(),
+          session_id: 'session',
+          anonymous_id: 'anon',
+        },
+        {
+          endpoint: 'https://analytics.example.com/collect',
+          sendBeacon: true,
+          debug: false,
+        },
+      ),
+    ).rejects.toMatchObject({
+      kind: 'network_error',
+      transport: 'fetch',
+    });
+  });
+
+  it('throws when fetch returns a non-ok response', async () => {
+    Object.defineProperty(window.navigator, 'sendBeacon', {
+      configurable: true,
+      value: undefined,
+    });
+    const fetchMock = vi.fn().mockResolvedValue(new Response('bad request', { status: 400 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(
+      sendEvent(
+        {
+          type: 'page_view',
+          site_id: 'site',
+          timestamp: new Date().toISOString(),
+          session_id: 'session',
+          anonymous_id: 'anon',
+        },
+        {
+          endpoint: 'https://analytics.example.com/collect',
+          sendBeacon: true,
+          debug: false,
+        },
+      ),
+    ).rejects.toMatchObject({
+      kind: 'http_error',
+      transport: 'fetch',
+      status: 400,
+    });
+  });
 });

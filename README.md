@@ -10,11 +10,27 @@ import { createAnalytics } from 'formation-analytics-client';
 const analytics = createAnalytics({
   endpoint: 'https://analytics.example.com/collect',
   siteId: 'marketing-site',
+  onError(error) {
+    console.warn('analytics delivery failed', error.kind, error.status);
+  },
 });
 
 analytics.page();
 analytics.event('cta_click', { label: 'hero-demo-button' });
 ```
+
+## Behavior
+
+- validates `endpoint`, `siteId`, event names, and `identify` user ids
+- sends page context (`url`, `path`, `title`, `referrer`) on all events
+- prefers `navigator.sendBeacon()` and falls back to `fetch`
+- treats non-2xx responses and network failures as delivery errors
+- reports failures through the optional `onError` hook while keeping public tracking calls best-effort
+
+## Notes
+
+- Keep custom event names backend-compatible: letters, digits, `_`, `.`, `:`, and `-`
+- The wire format is intended to stay compatible with the collector in the sibling `formation-web-analytics` project
 
 ## Outputs
 
