@@ -13,7 +13,7 @@ export async function sendEvent(
   const body = JSON.stringify(event);
 
   if (
-    options.sendBeacon &&
+    shouldUseSendBeacon(options) &&
     typeof navigator !== 'undefined' &&
     typeof navigator.sendBeacon === 'function'
   ) {
@@ -61,6 +61,22 @@ export async function sendEvent(
       );
     });
   debugLog(options, 'fetch', event);
+}
+
+function shouldUseSendBeacon(options: TransportOptions): boolean {
+  if (!options.sendBeacon) {
+    return false;
+  }
+
+  if (typeof window === 'undefined') {
+    return true;
+  }
+
+  try {
+    return new URL(options.endpoint).origin === window.location.origin;
+  } catch {
+    return true;
+  }
 }
 
 function debugLog(

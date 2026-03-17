@@ -46,7 +46,7 @@ analytics.event('cta_click', { label: 'hero-demo-button' });
 
 - validates `endpoint`, `siteId`, event names, and `identify` user ids
 - sends page context (`url`, `path`, `title`, `referrer`) on all events
-- prefers `navigator.sendBeacon()` and falls back to `fetch`
+- prefers `navigator.sendBeacon()` for same-origin delivery and uses `fetch` for cross-origin endpoints
 - treats non-2xx responses and network failures as delivery errors
 - reports failures through the optional `onError` hook while keeping public tracking calls best-effort
 
@@ -55,6 +55,7 @@ analytics.event('cta_click', { label: 'hero-demo-button' });
 - Keep custom event names backend-compatible: letters, digits, `_`, `.`, `:`, and `-`
 - The wire format is intended to stay compatible with the collector in the sibling `formation-web-analytics` project
 - `autoPageviews` defaults to `true`; set it to `false` if you want full manual control
+- Transport tradeoff: `sendBeacon()` is useful for same-origin analytics because it is unload-friendly and does not block navigation, but it is fire-and-forget and does not expose HTTP response details. For cross-origin collectors, the client prefers `fetch` for more predictable CORS behavior and proper response/error handling.
 
 ## Public API
 
