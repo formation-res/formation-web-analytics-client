@@ -1,0 +1,4 @@
+version: 1
+display_name: NPM Release
+short_description: Cut and verify npm releases with tag-triggered GitHub Actions publishing.
+default_prompt: Prepare and execute an npm package release by validating repo state, bumping the version, running verification, pushing the release commit and semver tag, following the GitHub Actions publish run, and confirming the published version and GitHub release.

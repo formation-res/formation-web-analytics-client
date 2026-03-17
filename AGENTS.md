@@ -36,3 +36,4 @@
 ## Skills
 
 - Use `.codex/skills/js-project-hardening/SKILL.md` when hardening behavior, validation, test coverage, dependency hygiene, or release checks in this package
+- Use `.codex/skills/npm-release/SKILL.md` when cutting a package release, bumping versions, pushing tags, following the publish workflow, or creating the matching GitHub release
