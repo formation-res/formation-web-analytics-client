@@ -24,12 +24,12 @@ Use this skill when the user wants to ship a package release from this repositor
    - Run `npm run verify`.
    - Do not tag or publish if verification fails.
 5. Push the release commit and wait for CI.
-   - Use a clear commit message such as `Release 0.1.2`.
+   - Use a clear commit message such as `Release <version>`.
    - Push `main` before pushing the tag so the workflow definition and release commit are present on GitHub.
    - Confirm the latest CI run for `main` completed successfully before creating the release tag.
 6. Create and push the semver tag.
-   - Use an annotated tag like `git tag -a 0.1.2 -m "Release 0.1.2"`.
-   - Push the explicit ref: `git push origin refs/tags/0.1.2`.
+   - Use an annotated tag like `git tag -a <version> -m "Release <version>"`.
+   - Push the explicit ref: `git push origin refs/tags/<version>`.
 7. Follow the GitHub Actions publish run.
    - Confirm the `publish` workflow started for the tag.
    - Watch the run to completion and inspect logs if it fails.
@@ -65,17 +65,17 @@ git log --oneline $(git describe --tags --abbrev=0)..HEAD
 sed -n '1,120p' package.json
 sed -n '1,120p' package-lock.json
 sed -n '1,200p' .github/workflows/publish.yml
-npm version 0.1.2 --no-git-tag-version
+npm version <version> --no-git-tag-version
 npm run verify
 git add package.json package-lock.json
-git commit -m "Release 0.1.2"
+git commit -m "Release <version>"
 git push origin main
 gh run list --workflow ci --branch main --limit 5
 gh run watch <ci-run-id> --exit-status
-git tag -a 0.1.2 -m "Release 0.1.2"
-git push origin refs/tags/0.1.2
+git tag -a <version> -m "Release <version>"
+git push origin refs/tags/<version>
 gh run list --limit 10
 gh run watch <run-id> --exit-status
 npm view @tryformation/formation-web-analytics-client version
-gh release create 0.1.2 --title "0.1.2" --notes "Initial release."
+gh release create <version> --title "<version>" --notes "Initial release."
 ```
