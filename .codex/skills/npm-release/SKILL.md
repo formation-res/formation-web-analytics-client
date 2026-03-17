@@ -23,9 +23,10 @@ Use this skill when the user wants to ship a package release from this repositor
 4. Verify before pushing.
    - Run `npm run verify`.
    - Do not tag or publish if verification fails.
-5. Commit and push the release commit.
+5. Push the release commit and wait for CI.
    - Use a clear commit message such as `Release 0.1.2`.
    - Push `main` before pushing the tag so the workflow definition and release commit are present on GitHub.
+   - Confirm the latest CI run for `main` completed successfully before creating the release tag.
 6. Create and push the semver tag.
    - Use an annotated tag like `git tag -a 0.1.2 -m "Release 0.1.2"`.
    - Push the explicit ref: `git push origin refs/tags/0.1.2`.
@@ -43,6 +44,7 @@ Use this skill when the user wants to ship a package release from this repositor
 - Base release recommendations on the diff since the latest release tag, not just the current version number.
 - Always pause for user confirmation or override after proposing the next semver version.
 - Treat tag pushes as the publish trigger; do not push a release tag until verification passes.
+- Do not push a release tag until the latest CI run for `main` is green.
 - If a tag already exists locally or remotely, stop and reconcile before creating another release.
 - If the publish workflow fails, inspect the failing job before retrying or changing tags.
 
@@ -68,6 +70,8 @@ npm run verify
 git add package.json package-lock.json
 git commit -m "Release 0.1.2"
 git push origin main
+gh run list --workflow ci --branch main --limit 5
+gh run watch <ci-run-id> --exit-status
 git tag -a 0.1.2 -m "Release 0.1.2"
 git push origin refs/tags/0.1.2
 gh run list --limit 10

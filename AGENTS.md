@@ -38,7 +38,7 @@
 - Before cutting a release, compare the diff against the latest release tag and propose a semantic version bump that matches the scope of the changes
 - Always give the user a chance to confirm or override the proposed release version before changing `package.json`, creating a tag, or publishing
 - Treat patch releases as fixes and low-risk internal changes, minor releases as backward-compatible feature additions, and major releases as intentional breaking changes
-- Ensure `main` is pushed and `npm run verify` passes before tagging a release
+- Ensure `main` is pushed, `npm run verify` passes locally, and the latest CI run for `main` has completed successfully before tagging a release
 
 ## Skills
 
