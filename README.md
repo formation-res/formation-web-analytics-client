@@ -1,6 +1,6 @@
 # Formation Analytics Client
 
-Small browser tracker with a low-surprise API close to Google Analytics.
+Small browser tracker with a low-surprise API close to Google Analytics. Intended to be used together with our [analytics server](https://github.com/formation-res/formation-web-analytics).
 
 ## Usage
 
