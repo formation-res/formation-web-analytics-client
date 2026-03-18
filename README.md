@@ -46,7 +46,7 @@ analytics.event('cta_click', { label: 'hero-demo-button' });
 
 - validates `endpoint`, `siteId`, event names, and `identify` user ids
 - sends page context (`url`, `path`, `title`, `referrer`) on all events
-- prefers `navigator.sendBeacon()` for same-origin delivery and uses `fetch` for cross-origin endpoints
+- sends events with `fetch`
 - treats non-2xx responses and network failures as delivery errors
 - reports failures through the optional `onError` hook while keeping public tracking calls best-effort
 
@@ -55,7 +55,16 @@ analytics.event('cta_click', { label: 'hero-demo-button' });
 - Keep custom event names backend-compatible: letters, digits, `_`, `.`, `:`, and `-`
 - The wire format is intended to stay compatible with the collector in the sibling `formation-web-analytics` project
 - `autoPageviews` defaults to `true`; set it to `false` if you want full manual control
-- Transport tradeoff: `sendBeacon()` is useful for same-origin analytics because it is unload-friendly and does not block navigation, but it is fire-and-forget and does not expose HTTP response details. For cross-origin collectors, the client prefers `fetch` for more predictable CORS behavior and proper response/error handling.
+- Transport uses `fetch` with `keepalive: true` for best-effort delivery while preserving HTTP response/error handling.
+
+## Testing In The Browser
+
+- Browser-based ad blockers and privacy extensions can block analytics requests entirely, even when the client is working correctly.
+- If events seem to disappear during manual testing, retry with ad blockers disabled, in a clean browser profile, or in a private window without extensions.
+- Open the browser developer tools and inspect the Network tab while triggering `page()`, `event()`, or `identify()`.
+- Filter for your collector endpoint or `fetch` requests and confirm the request URL, status code, timing, and response.
+- Click the request and inspect the request payload/body to verify the event shape, identifiers, page context, and custom payload fields.
+- If you use automatic page views in an SPA, keep the Network tab open while navigating with `pushState`, `replaceState`, back/forward, and hash changes to confirm one request per navigation.
 
 ## Public API
 

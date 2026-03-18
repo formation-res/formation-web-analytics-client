@@ -4,7 +4,6 @@ import { describe, expect, it, vi } from 'vitest';
 import { sendEvent } from './transport';
 
 describe('transport', () => {
-  const sameOriginEndpoint = `${window.location.origin}/collect`;
   const event = {
     type: 'page_view',
     site_id: 'site',
@@ -13,29 +12,28 @@ describe('transport', () => {
     anonymous_id: 'anon',
   };
 
-  it('uses sendBeacon when available', async () => {
+  it('uses fetch even when sendBeacon is available', async () => {
     const sendBeacon = vi.fn().mockReturnValue(true);
     Object.defineProperty(window.navigator, 'sendBeacon', {
       configurable: true,
       value: sendBeacon,
     });
-    const fetchMock = vi.fn();
+    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 202 }));
     vi.stubGlobal('fetch', fetchMock);
 
     await sendEvent(
       event,
       {
-        endpoint: sameOriginEndpoint,
-        sendBeacon: true,
+        endpoint: `${window.location.origin}/collect`,
         debug: false,
       },
     );
 
-    expect(sendBeacon).toHaveBeenCalledOnce();
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(sendBeacon).not.toHaveBeenCalled();
+    expect(fetchMock).toHaveBeenCalledOnce();
   });
 
-  it('prefers fetch for cross-origin endpoints even when sendBeacon is available', async () => {
+  it('uses fetch for cross-origin endpoints', async () => {
     const sendBeacon = vi.fn().mockReturnValue(true);
     Object.defineProperty(window.navigator, 'sendBeacon', {
       configurable: true,
@@ -46,28 +44,10 @@ describe('transport', () => {
 
     await sendEvent(event, {
       endpoint: 'https://analytics.example.com/collect',
-      sendBeacon: true,
       debug: false,
     });
 
     expect(sendBeacon).not.toHaveBeenCalled();
-    expect(fetchMock).toHaveBeenCalledOnce();
-  });
-
-  it('falls back to fetch when sendBeacon returns false', async () => {
-    Object.defineProperty(window.navigator, 'sendBeacon', {
-      configurable: true,
-      value: vi.fn().mockReturnValue(false),
-    });
-    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 202 }));
-    vi.stubGlobal('fetch', fetchMock);
-
-    await sendEvent(event, {
-      endpoint: sameOriginEndpoint,
-      sendBeacon: true,
-      debug: false,
-    });
-
     expect(fetchMock).toHaveBeenCalledOnce();
   });
 
@@ -82,7 +62,6 @@ describe('transport', () => {
     await expect(
       sendEvent(event, {
         endpoint: 'https://analytics.example.com/collect',
-        sendBeacon: true,
         debug: false,
       }),
     ).rejects.toMatchObject({
@@ -102,7 +81,6 @@ describe('transport', () => {
     await expect(
       sendEvent(event, {
         endpoint: 'https://analytics.example.com/collect',
-        sendBeacon: true,
         debug: false,
       }),
     ).rejects.toMatchObject({

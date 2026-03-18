@@ -6,7 +6,6 @@ export type AnalyticsConfig = {
   autoPageviews?: boolean;
   anonymousIdStorageKey?: string;
   sessionStorageKey?: string;
-  sendBeacon?: boolean;
   debug?: boolean;
   defaultPayload?: EventPayload;
   onError?: (error: AnalyticsError) => void;
@@ -35,17 +34,15 @@ export interface AnalyticsClient {
 
 export type TransportOptions = {
   endpoint: string;
-  sendBeacon: boolean;
   debug: boolean;
 };
 
 export type AnalyticsErrorKind =
-  | 'sendBeacon_rejected'
   | 'network_error'
   | 'http_error'
   | 'configuration_error';
 
-export type AnalyticsTransport = 'sendBeacon' | 'fetch' | 'client';
+export type AnalyticsTransport = 'fetch' | 'client';
 
 export type AnalyticsError = Error & {
   kind: AnalyticsErrorKind;

@@ -12,18 +12,6 @@ export async function sendEvent(
 ): Promise<void> {
   const body = JSON.stringify(event);
 
-  if (
-    shouldUseSendBeacon(options) &&
-    typeof navigator !== 'undefined' &&
-    typeof navigator.sendBeacon === 'function'
-  ) {
-    const blob = new Blob([body], { type: 'application/json' });
-    if (navigator.sendBeacon(options.endpoint, blob)) {
-      debugLog(options, 'sendBeacon', event);
-      return;
-    }
-  }
-
   if (typeof fetch !== 'function') {
     throw new Error('fetch is not available in this environment');
   }
@@ -63,25 +51,9 @@ export async function sendEvent(
   debugLog(options, 'fetch', event);
 }
 
-function shouldUseSendBeacon(options: TransportOptions): boolean {
-  if (!options.sendBeacon) {
-    return false;
-  }
-
-  if (typeof window === 'undefined') {
-    return true;
-  }
-
-  try {
-    return new URL(options.endpoint).origin === window.location.origin;
-  } catch {
-    return true;
-  }
-}
-
 function debugLog(
   options: TransportOptions,
-  transport: 'sendBeacon' | 'fetch',
+  transport: 'fetch',
   event: OutboundEvent,
 ) {
   if (!options.debug || typeof console === 'undefined') {

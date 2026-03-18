@@ -23,14 +23,12 @@ describe('global analytics wrapper', () => {
     analytics.init({
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
-      sendBeacon: false,
     });
     await Promise.resolve();
 
     analytics.init({
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
-      sendBeacon: false,
     });
     await Promise.resolve();
 

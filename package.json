@@ -1,6 +1,6 @@
 {
   "name": "@tryformation/formation-web-analytics-client",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Light weight browser analytics client intended to be used with the formation-web-analytics server.",
   "license": "MIT",
   "type": "module",

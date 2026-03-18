@@ -19,7 +19,6 @@ type ResolvedConfig = Required<
     | 'autoPageviews'
     | 'anonymousIdStorageKey'
     | 'sessionStorageKey'
-    | 'sendBeacon'
     | 'debug'
     | 'defaultPayload'
   >
@@ -100,7 +99,6 @@ export function createAnalytics(config: AnalyticsConfig): AnalyticsClient {
     try {
       await sendEvent(event, {
         endpoint: resolved.endpoint,
-        sendBeacon: resolved.sendBeacon,
         debug: resolved.debug,
       });
     } catch (error) {
@@ -264,7 +262,6 @@ function resolveConfig(config: AnalyticsConfig): ResolvedConfig {
     autoPageviews: config.autoPageviews ?? true,
     anonymousIdStorageKey: config.anonymousIdStorageKey ?? DEFAULT_ANON_KEY,
     sessionStorageKey: config.sessionStorageKey ?? DEFAULT_SESSION_KEY,
-    sendBeacon: config.sendBeacon ?? true,
     debug: config.debug ?? false,
     defaultPayload: config.defaultPayload ?? {},
     onError: config.onError,

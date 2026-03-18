@@ -30,7 +30,6 @@ describe('analytics client', () => {
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
       autoPageviews: false,
-      sendBeacon: false,
     });
 
     analytics.event('cta_click');
@@ -51,7 +50,6 @@ describe('analytics client', () => {
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
       autoPageviews: false,
-      sendBeacon: false,
     });
 
     analytics.page({ utm_source: 'google' });
@@ -73,7 +71,6 @@ describe('analytics client', () => {
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
       autoPageviews: false,
-      sendBeacon: false,
     });
 
     analytics.identify('user-123', { plan: 'pro' });
@@ -94,7 +91,6 @@ describe('analytics client', () => {
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
       autoPageviews: false,
-      sendBeacon: false,
     });
 
     analytics.event('checkout_started', { step: 'shipping' });
@@ -115,7 +111,6 @@ describe('analytics client', () => {
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
       autoPageviews: false,
-      sendBeacon: false,
       defaultPayload: {
         locale: 'en',
         plan: 'free',
@@ -159,7 +154,6 @@ describe('analytics client', () => {
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
       autoPageviews: false,
-      sendBeacon: false,
       onError,
     });
 
@@ -186,7 +180,6 @@ describe('analytics client', () => {
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
       autoPageviews: false,
-      sendBeacon: false,
       onError,
     });
 
@@ -210,7 +203,6 @@ describe('analytics client', () => {
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
       autoPageviews: false,
-      sendBeacon: false,
       onError,
     });
 
@@ -236,14 +228,12 @@ describe('analytics client', () => {
     createAnalytics({
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
-      sendBeacon: false,
     });
     await flushAsyncWork();
 
     createAnalytics({
       endpoint: 'https://analytics.example.com/collect',
       siteId: 'marketing-site',
-      sendBeacon: false,
     });
     await flushAsyncWork();
 
