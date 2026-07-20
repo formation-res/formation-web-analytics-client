@@ -41,20 +41,17 @@
   },
   "scripts": {
     "build": "rm -rf dist && vite build && vite build --config vite.iife.config.ts && tsc -p tsconfig.build.json",
-    "lint": "eslint .",
+    "lint": "biome lint .",
     "test": "vitest run",
     "audit": "npm audit",
     "verify": "npm run lint && npm test && npm run build && npm run audit",
     "prepublishOnly": "npm run verify"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "eslint": "^10.6.0",
-    "globals": "^17.7.0",
+    "@biomejs/biome": "^2.5.4",
     "jsdom": "^29.1.1",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.1",
-    "vite": "^8.1.3",
-    "vitest": "^4.1.9"
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
   }
 }
